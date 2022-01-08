@@ -20,8 +20,9 @@ const NavBar = () => {
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="d-flex m-2">
           <Nav.Link>Log In</Nav.Link>
-          <Nav.Link>
-            <Form.Switch label="Dark Mode" />
+          <Nav.Link className="d-flex">
+            <span className="me-2">Dark Mode</span>
+            <Form.Switch />
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

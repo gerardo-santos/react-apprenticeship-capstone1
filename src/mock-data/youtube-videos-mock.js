@@ -1,4 +1,4 @@
-export const mockupVideos = {
+export const mockupVideosInfo = {
   kind: 'youtube#searchListResponse',
   etag: 'LRviZfd_p3HDDD2uBk5Qv7zaEQU',
   nextPageToken: 'CBkQAA',
