@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Title = styled.h1`
+export const MainTitle = styled.h1`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
   text-align: center;
   font-family: 'Montserrat', sans-serif;
