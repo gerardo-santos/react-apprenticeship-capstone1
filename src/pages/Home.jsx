@@ -1,5 +1,5 @@
 import { Wrapper } from '../components/styles/Wrapper.styled';
-import { Title } from '../components/styles/Title.styled';
+import { MainTitle } from '../components/styles/MainTitle.styled';
 import { CardGrid } from '../components/styles/CardGrid.styled';
 import Card from '../components/Card';
 import { mockupVideosInfo } from '../mock-data/youtube-videos-mock';
@@ -8,7 +8,7 @@ const Home = () => {
   const videos = mockupVideosInfo.items;
   return (
     <Wrapper>
-      <Title>Home Page</Title>
+      <MainTitle>Home Page</MainTitle>
       <CardGrid>
         {videos.map((video) => (
           <Card
