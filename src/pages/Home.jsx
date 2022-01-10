@@ -12,7 +12,7 @@ const Home = () => {
       <CardGrid>
         {videos.map((video) => (
           <Card
-            key={video.id.videoId}
+            key={video.etag}
             thumbnail={video.snippet.thumbnails.medium.url}
             title={video.snippet.title}
             description={video.snippet.description}
