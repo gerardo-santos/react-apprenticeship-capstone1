@@ -2,11 +2,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import SearchForm from './SearchForm';
+import PropTypes from 'prop-types';
 
-const NavBar = () => {
+const NavBar = ({ query, updateQuery, getSearch }) => {
   return (
     <Navbar collapseOnSelect expand="false" bg="success" variant="dark">
-      <SearchForm />
+      <SearchForm
+        query={query}
+        updateQuery={updateQuery}
+        getSearch={getSearch}
+      />
       <Navbar.Toggle aria-controls="responsive-navbar-nav" className="m-2" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="d-flex m-2">
@@ -19,6 +24,12 @@ const NavBar = () => {
       </Navbar.Collapse>
     </Navbar>
   );
+};
+
+NavBar.propTypes = {
+  query: PropTypes.string,
+  updateQuery: PropTypes.func,
+  getSearch: PropTypes.func,
 };
 
 export default NavBar;
