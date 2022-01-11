@@ -1,7 +1,9 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 import useFetch from './hooks/useFetch';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
+import VideoDetails from './pages/VideoDetails';
 
 const App = () => {
   const [query, setQuery] = useState('sports');
@@ -22,10 +24,29 @@ const App = () => {
   };
 
   return (
-    <div>
-      <NavBar query={query} updateQuery={updateQuery} getSearch={getSearch} />
-      <Home loading={loading} error={error} videoData={videoData} />
-    </div>
+    <BrowserRouter>
+      <div>
+        <NavBar query={query} updateQuery={updateQuery} getSearch={getSearch} />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home loading={loading} error={error} videoData={videoData} />
+            }
+          />
+          <Route
+            path="video-details/:id"
+            element={
+              <VideoDetails
+                loading={loading}
+                error={error}
+                videoData={videoData}
+              />
+            }
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 

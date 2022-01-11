@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { Wrapper } from '../components/styles/Wrapper.styled';
 import { MainTitle } from '../components/styles/MainTitle.styled';
@@ -7,13 +8,11 @@ import Spinner from '../components/Spinner';
 import PropTypes from 'prop-types';
 
 const Home = ({ loading, error, videoData }) => {
-  let videos = [];
   if (error) {
+    console.error(error);
     return <Alert variant="danger">An error occured.</Alert>;
   }
-  if (!loading) {
-    videos = videoData.items ? videoData.items : [];
-  }
+
   return (
     <Wrapper>
       <MainTitle>Home Page</MainTitle>
@@ -21,13 +20,17 @@ const Home = ({ loading, error, videoData }) => {
         <Spinner />
       ) : (
         <CardGrid>
-          {videos.map((video) => (
-            <Card
-              key={video.etag}
-              thumbnail={video.snippet.thumbnails.medium.url}
-              title={video.snippet.title}
-              description={video.snippet.description}
-            />
+          {videoData.items.map((video) => (
+            <Link
+              to={`/video-details/${video.id.videoId}`}
+              key={`${video.id.videoId}-${Math.random()}`}
+            >
+              <Card
+                thumbnail={video.snippet.thumbnails.medium.url}
+                title={video.snippet.title}
+                description={video.snippet.description}
+              />
+            </Link>
           ))}
         </CardGrid>
       )}
