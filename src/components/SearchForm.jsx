@@ -1,11 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
 const SearchForm = ({ query, updateQuery, getSearch }) => {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const handleClick = () => {
+    getSearch(query);
+    navigate('/');
   };
 
   return (
@@ -22,7 +29,7 @@ const SearchForm = ({ query, updateQuery, getSearch }) => {
         value={query}
         onChange={(e) => updateQuery(e.target.value)}
       />
-      <Button variant="danger" onClick={() => getSearch(query)}>
+      <Button variant="danger" onClick={handleClick}>
         Search
       </Button>
     </Form>
