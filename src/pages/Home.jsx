@@ -20,18 +20,20 @@ const Home = ({ loading, error, videoData }) => {
         <Spinner />
       ) : (
         <CardGrid>
-          {videoData.items.map((video) => (
-            <Link
-              to={`/video-details/${video.id.videoId}`}
-              key={`${video.id.videoId}-${Math.random()}`}
-            >
-              <Card
-                thumbnail={video.snippet.thumbnails.medium.url}
-                title={video.snippet.title}
-                description={video.snippet.description}
-              />
-            </Link>
-          ))}
+          {videoData
+            ? videoData.items.map((video) => (
+                <Link
+                  to={`/video-details/${video.id.videoId}`}
+                  key={`${video.id.videoId}-${Math.random()}`}
+                >
+                  <Card
+                    thumbnail={video.snippet.thumbnails.medium.url}
+                    title={video.snippet.title}
+                    description={video.snippet.description}
+                  />
+                </Link>
+              ))
+            : 'There are no videos to show.'}
         </CardGrid>
       )}
     </Wrapper>
