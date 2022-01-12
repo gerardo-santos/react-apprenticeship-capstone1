@@ -16,10 +16,12 @@ const VideoDetails = ({ loading, error, videoData }) => {
     console.error(error);
     return <Alert variant="danger">An error occured.</Alert>;
   }
-  const videos = videoData.items;
+  const videos = videoData ? videoData.items : [];
   const [selectedVideo] = videos.filter((video) => video.id.videoId === id);
-  const videoTitle = selectedVideo.snippet.title;
-  const videoDescription = selectedVideo.snippet.description;
+  const videoTitle = selectedVideo ? selectedVideo.snippet.title : '';
+  const videoDescription = selectedVideo
+    ? selectedVideo.snippet.description
+    : '';
   return (
     <>
       {loading ? (
