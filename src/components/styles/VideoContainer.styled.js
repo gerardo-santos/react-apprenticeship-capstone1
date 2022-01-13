@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const VideoContainer = styled.div`
+export const StyledVideoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

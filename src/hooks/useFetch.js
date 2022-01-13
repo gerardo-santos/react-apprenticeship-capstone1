@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react';
 const useFetch = (url, options, dependency) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [videoData, setVideoData] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     const abortController = new AbortController();
     const fetchVideos = async () => {
       try {
         const response = await fetch(url, options);
-        const data = await response.json();
-        setVideoData(data);
+        const responseJson = await response.json();
+        setData(responseJson);
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -23,7 +23,7 @@ const useFetch = (url, options, dependency) => {
       abortController.abort();
     };
   }, [dependency]);
-  return { loading, error, videoData };
+  return { loading, error, data };
 };
 
 export default useFetch;
