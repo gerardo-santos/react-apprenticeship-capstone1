@@ -10,6 +10,7 @@ const Home = ({ loading, error, videoData }) => {
   if (error) {
     return <Alert variant="danger">An error occured.</Alert>;
   }
+  const videos = videoData ? videoData.items : [];
 
   return (
     <Wrapper>
@@ -18,8 +19,8 @@ const Home = ({ loading, error, videoData }) => {
         <Spinner />
       ) : (
         <CardGrid>
-          {videoData
-            ? videoData.items.map((video) => (
+          {videos && videos.length > 0
+            ? videos.map((video) => (
                 <Card
                   key={`${video.id.videoId}-${Math.random()}`}
                   url={`/video-details/${video.id.videoId}`}
