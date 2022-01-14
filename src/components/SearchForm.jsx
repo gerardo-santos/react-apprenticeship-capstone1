@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { GlobalContext } from '../context/GlobalContext';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
-import PropTypes from 'prop-types';
 
-const SearchForm = ({ query, updateQuery, getSearch }) => {
+const SearchForm = () => {
+  const { query, updateQuery, getSearch } = useContext(GlobalContext);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,12 +33,6 @@ const SearchForm = ({ query, updateQuery, getSearch }) => {
       </Button>
     </Form>
   );
-};
-
-SearchForm.propTypes = {
-  query: PropTypes.string,
-  updateQuery: PropTypes.func,
-  getSearch: PropTypes.func,
 };
 
 export default SearchForm;

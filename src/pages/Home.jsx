@@ -10,10 +10,9 @@ import { NoVideosText } from '../components/styles/NoVideosText.styled';
 import Alert from 'react-bootstrap/Alert';
 import Card from '../components/Card';
 import Spinner from '../components/Spinner';
-import PropTypes from 'prop-types';
 
-const Home = ({ loading, error, videoData }) => {
-  const { darkMode } = useContext(GlobalContext);
+const Home = () => {
+  const { loading, error, data, darkMode } = useContext(GlobalContext);
   const backgroundColor = darkMode
     ? darkStyles.backgroundColor
     : lightStyles.backgroundColor;
@@ -21,7 +20,8 @@ const Home = ({ loading, error, videoData }) => {
   if (error) {
     return <Alert variant="danger">An error occured.</Alert>;
   }
-  const videos = videoData ? videoData.items : [];
+  const videos = data ? data.items : [];
+  console.log(videos);
 
   return (
     <PageContainer backgroundColor={backgroundColor}>
@@ -39,6 +39,7 @@ const Home = ({ loading, error, videoData }) => {
                   thumbnail={video.snippet.thumbnails.medium.url}
                   title={video.snippet.title}
                   description={video.snippet.description}
+                  textColor={textColor}
                 />
               ))
             ) : (
@@ -51,12 +52,6 @@ const Home = ({ loading, error, videoData }) => {
       </Wrapper>
     </PageContainer>
   );
-};
-
-Home.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.object,
-  videoData: PropTypes.object,
 };
 
 export default Home;
