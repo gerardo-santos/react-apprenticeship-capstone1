@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 import { Wrapper } from '../components/styles/Wrapper.styled';
 import { MainTitle } from '../components/styles/MainTitle.styled';
 import { CardGrid } from '../components/styles/CardGrid.styled';
@@ -28,6 +30,7 @@ const Home = ({ loading, error, videoData }) => {
                   title={video.snippet.title}
                   description={video.snippet.description}
                 />
+
               ))
             : 'There are no videos to show.'}
         </CardGrid>

@@ -4,6 +4,7 @@ import useFetch from './hooks/useFetch';
 import NavBar from './components/NavBar';
 import AppRouter from './components/AppRouter';
 
+
 const App = () => {
   const [query, setQuery] = useState('sports');
   const [search, setSearch] = useState('');
