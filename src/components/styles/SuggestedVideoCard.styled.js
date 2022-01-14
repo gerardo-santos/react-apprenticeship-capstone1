@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledSuggestedVideoCard = styled.div`
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-  font-family: 'Montserrat', sans-serif;
-  color: #18191a;
-  background-color: white;
+  background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: 4px;
   display: flex;
+  border: 2px solid green;
   -webkit-box-shadow: 3px 3px 8px 3px #1e1f21;
   box-shadow: 3px 3px 8px 3px #1e1f21;
   cursor: pointer;
