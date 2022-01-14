@@ -6,11 +6,8 @@ import PropTypes from 'prop-types';
 
 const SearchForm = ({ query, updateQuery, getSearch }) => {
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     getSearch(query);
     navigate('/');
   };
@@ -29,7 +26,7 @@ const SearchForm = ({ query, updateQuery, getSearch }) => {
         value={query}
         onChange={(e) => updateQuery(e.target.value)}
       />
-      <Button variant="danger" onClick={handleClick}>
+      <Button type="submit" variant="danger">
         Search
       </Button>
     </Form>
