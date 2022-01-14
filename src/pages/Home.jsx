@@ -7,12 +7,21 @@ import { darkStyles } from '../components/styles/ThemeStyles.styled';
 import { CardGrid } from '../components/styles/CardGrid.styled';
 import { PageContainer } from '../components/styles/PageContainer.styled';
 import { NoVideosText } from '../components/styles/NoVideosText.styled';
+import { youtubeApiUrl } from '../utils/constants';
 import Alert from 'react-bootstrap/Alert';
 import Card from '../components/Card';
 import Spinner from '../components/Spinner';
+import useFetch from '../hooks/useFetch';
 
 const Home = () => {
-  const { loading, error, data, darkMode } = useContext(GlobalContext);
+  const { darkMode, search, query } = useContext(GlobalContext);
+  const { loading, error, data } = useFetch(
+    // eslint-disable-next-line no-undef
+    `${youtubeApiUrl}search?part=snippet&maxResults=24&q=${query}&key=${process.env.REACT_APP_API_KEY}`,
+    {},
+    search
+  );
+
   const backgroundColor = darkMode
     ? darkStyles.backgroundColor
     : lightStyles.backgroundColor;

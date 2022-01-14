@@ -5,9 +5,9 @@ import Nav from 'react-bootstrap/Nav';
 import SearchForm from './SearchForm';
 
 const NavBar = () => {
-  const { darkMode, toggleTheme } = useContext(GlobalContext);
+  const { darkMode, dispatch } = useContext(GlobalContext);
   const handleToggle = () => {
-    toggleTheme();
+    dispatch({ type: 'TOGGLE_THEME' });
   };
 
   return (
