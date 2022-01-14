@@ -21,7 +21,6 @@ const Home = () => {
     return <Alert variant="danger">An error occured.</Alert>;
   }
   const videos = data ? data.items : [];
-  console.log(videos);
 
   return (
     <PageContainer backgroundColor={backgroundColor}>

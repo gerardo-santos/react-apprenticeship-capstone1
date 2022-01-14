@@ -7,12 +7,6 @@ import Alert from 'react-bootstrap/Alert';
 
 const SuggestedVideosContainer = () => {
   const { id } = useParams();
-  // const filterVideos = (videos) => {
-  //   if (Array.isArray(videos.items)) {
-  //     return videos.items.filter((video) => video.snippet);
-  //   }
-  // };
-
   const { loading, error, data } = useFetch(
     // eslint-disable-next-line no-undef
     `${youtubeApiUrl}search?part=snippet&maxResults=20&relatedToVideoId=${id}&type=video&key=${process.env.REACT_APP_API_KEY}`,
@@ -22,7 +16,6 @@ const SuggestedVideosContainer = () => {
   const suggestedVideos = data
     ? data.items.filter((video) => video.snippet)
     : [];
-  console.warn(data);
   if (error) {
     return <Alert />;
   }
