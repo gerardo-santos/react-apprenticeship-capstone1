@@ -1,20 +1,28 @@
 import { StyledSuggestedVideosContainer } from '../components/styles/SuggestedVideosContainer.styled';
 import { useParams } from 'react-router-dom';
+import { youtubeApiUrl } from '../utils/constants';
 import useFetch from '../hooks/useFetch';
 import SuggestedVideoCard from './SuggestedVideoCard';
 import Alert from 'react-bootstrap/Alert';
 
 const SuggestedVideosContainer = () => {
   const { id } = useParams();
+  // const filterVideos = (videos) => {
+  //   if (Array.isArray(videos.items)) {
+  //     return videos.items.filter((video) => video.snippet);
+  //   }
+  // };
+
   const { loading, error, data } = useFetch(
     // eslint-disable-next-line no-undef
-    `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&relatedToVideoId=${id}&type=video&key=${process.env.REACT_APP_API_KEY}`,
+    `${youtubeApiUrl}search?part=snippet&maxResults=20&relatedToVideoId=${id}&type=video&key=${process.env.REACT_APP_API_KEY}`,
     {},
     id
   );
   const suggestedVideos = data
     ? data.items.filter((video) => video.snippet)
     : [];
+  console.warn(data);
   if (error) {
     return <Alert />;
   }

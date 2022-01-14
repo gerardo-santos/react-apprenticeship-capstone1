@@ -5,18 +5,19 @@ import { CardTitle } from './styles/CardTitle.styled';
 import { CardTitleContainer } from './styles/CardTitleContainer.styled';
 import { CardDescription } from './styles/CardDescription.styled';
 import { CardDescriptionContainer } from './styles/CardDescriptionContainer.styled';
+
 import PropTypes from 'prop-types';
 
-const Card = ({ thumbnail, title, description, url }) => {
+const Card = ({ thumbnail, title, description, url, textColor }) => {
   return (
     <Link to={url}>
       <StyledCard>
         <CardThumbnail src={thumbnail} alt="video-thumbnail" />
         <CardTitleContainer>
-          <CardTitle>{title}</CardTitle>
+          <CardTitle textColor={textColor}>{title}</CardTitle>
         </CardTitleContainer>
         <CardDescriptionContainer>
-          <CardDescription>{description}</CardDescription>
+          <CardDescription textColor={textColor}>{description}</CardDescription>
         </CardDescriptionContainer>
       </StyledCard>
     </Link>
@@ -28,6 +29,7 @@ Card.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   url: PropTypes.string,
+  textColor: PropTypes.string,
 };
 
 export default Card;

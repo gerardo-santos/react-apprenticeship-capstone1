@@ -6,6 +6,8 @@ import { lightStyles } from './styles/ThemeStyles.styled';
 import { darkStyles } from './styles/ThemeStyles.styled';
 import { StyledVideoTitle } from './styles/StyledVideoTitle.styled';
 import { StyledVideoDescription } from './styles/StyledVideoDescription.styled';
+import { youtubeVideoUrl } from '../utils/constants';
+import { youtubeApiUrl } from '../utils/constants';
 import useFetch from '../hooks/useFetch';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from './Spinner';
@@ -14,11 +16,10 @@ import ReactPlayer from 'react-player';
 const VideoContainer = () => {
   const { darkMode } = useContext(GlobalContext);
   const textColor = darkMode ? darkStyles.color : lightStyles.color;
-  const youtubeUrl = 'https://www.youtube.com/watch?v=';
   const { id } = useParams();
   const { loading, error, data } = useFetch(
     // eslint-disable-next-line no-undef
-    `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=${process.env.REACT_APP_API_KEY}`,
+    `${youtubeApiUrl}videos?part=snippet&id=${id}&key=${process.env.REACT_APP_API_KEY}`,
     {},
     id
   );
@@ -35,7 +36,7 @@ const VideoContainer = () => {
         <Spinner />
       ) : (
         <>
-          <ReactPlayer url={`${youtubeUrl}${id}`} width="auto" />
+          <ReactPlayer url={`${youtubeVideoUrl}${id}`} width="auto" />
           <StyledVideoTitle textColor={textColor}>
             {videoTitle}
           </StyledVideoTitle>
