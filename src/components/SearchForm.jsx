@@ -6,12 +6,14 @@ import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 const SearchForm = () => {
-  const { query, updateQuery, getSearch } = useContext(GlobalContext);
+  const { query, dispatch } = useContext(GlobalContext);
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    getSearch(query);
-    navigate('/');
+    if (query) {
+      dispatch({ type: 'GET_SEARCH', payload: query });
+      navigate('/');
+    }
   };
 
   return (
@@ -26,7 +28,9 @@ const SearchForm = () => {
         className="me-2"
         aria-label="Search"
         value={query}
-        onChange={(e) => updateQuery(e.target.value)}
+        onChange={(e) =>
+          dispatch({ type: 'UPDATE_QUERY', payload: e.target.value })
+        }
       />
       <Button type="submit" variant="danger">
         Search
