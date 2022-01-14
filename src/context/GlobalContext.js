@@ -1,43 +1,44 @@
-import { createContext, useState } from 'react';
+import { createContext, useReducer } from 'react';
 import { youtubeApiUrl } from '../utils/constants';
+import { globalReducer } from './GlobalReducer';
 import PropTypes from 'prop-types';
 import useFetch from '../hooks/useFetch';
 export const GlobalContext = createContext();
 
+const initialState = { query: 'sports', search: '', darkMode: false };
+
 export const GlobalProvider = ({ children }) => {
-  const [query, setQuery] = useState('sports');
-  const [search, setSearch] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
+  const [state, dispatch] = useReducer(globalReducer, initialState);
   const { loading, error, data } = useFetch(
     // eslint-disable-next-line no-undef
-    `${youtubeApiUrl}search?part=snippet&maxResults=24&q=${query}&key=${process.env.REACT_APP_API_KEY}`,
+    `${youtubeApiUrl}search?part=snippet&maxResults=24&q=${state.query}&key=${process.env.REACT_APP_API_KEY}`,
     {},
-    search
+    state.search
   );
 
   const updateQuery = (newQuery) => {
-    setQuery(newQuery);
+    dispatch({ type: 'UPDATE_QUERY', payload: newQuery });
   };
 
   const getSearch = (newSearch) => {
-    setSearch(newSearch);
+    dispatch({ type: 'GET_SEARCH', payload: newSearch });
   };
 
   const toggleTheme = () => {
-    setDarkMode(!darkMode);
+    dispatch({ type: 'TOGGLE_THEME' });
   };
 
   return (
     <GlobalContext.Provider
       value={{
-        query,
+        query: state.query,
+        updateQuery,
         loading,
         error,
         data,
-        updateQuery,
-        getSearch,
-        darkMode,
+        darkMode: state.darkMode,
         toggleTheme,
+        getSearch,
       }}
     >
       {children}

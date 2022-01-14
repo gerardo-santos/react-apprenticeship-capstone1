@@ -6,4 +6,5 @@ export const StyledSuggestedVideosContainer = styled.div`
   justify-content: flex-start;
   height: 100vh;
   overflow-y: scroll;
+  width: 50%;
 `;
