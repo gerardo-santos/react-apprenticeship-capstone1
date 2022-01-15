@@ -45,11 +45,9 @@ const VideoContainer = () => {
       setIsVideoInFavorites(false);
       const newFavorites = favorites.filter((favorite) => favorite.id !== id);
       dispatch({ type: 'REMOVE_FROM_FAVORITES', payload: newFavorites });
-      console.log(8);
     } else {
       setIsVideoInFavorites(true);
       dispatch({ type: 'ADD_TO_FAVORITES', payload: video });
-      console.log(2);
     }
   };
 

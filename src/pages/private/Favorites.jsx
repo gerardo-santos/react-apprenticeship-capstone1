@@ -11,7 +11,8 @@ import Card from '../../components/Card';
 import Alert from 'react-bootstrap/Alert';
 
 const Favorites = () => {
-  const { isLoggedIn, darkMode, favorites } = useContext(GlobalContext);
+  const { isLoggedIn, darkMode, favorites, dispatch } =
+    useContext(GlobalContext);
   const navigate = useNavigate();
   useEffect(() => {
     if (!isLoggedIn) {
@@ -33,11 +34,14 @@ const Favorites = () => {
             favorites.map((favorite) => (
               <Card
                 key={`${favorite.id.videoId}-${Math.random()}`}
-                url={`/favorite-details/${favorite.id.videoId}`}
+                url={`/favorite-details/${favorite.id}`}
                 thumbnail={favorite.snippet.thumbnails.medium.url}
                 title={favorite.snippet.title}
                 description={favorite.snippet.description}
                 textColor={textColor}
+                favorites={favorites}
+                dispatch={dispatch}
+                id={favorite.id}
               />
             ))
           ) : (
