@@ -6,7 +6,6 @@ import { CardTitleContainer } from './styles/CardTitleContainer.styled';
 import { CardDescription } from './styles/CardDescription.styled';
 import { CardDescriptionContainer } from './styles/CardDescriptionContainer.styled';
 import Button from 'react-bootstrap/Button';
-
 import PropTypes from 'prop-types';
 
 const Card = ({
