@@ -8,6 +8,8 @@ const initialState = {
   search: '',
   darkMode: false,
   isLoggedIn: false,
+  mockedUser: {},
+  favorites: [],
 };
 
 export const GlobalProvider = ({ children }) => {

@@ -24,7 +24,9 @@ const NavBar = () => {
           </Nav.Link>
           {isLoggedIn ? (
             <>
-              <Nav.Link>Favorites</Nav.Link>
+              <Nav.Link as={Link} to="favorites">
+                Favorites
+              </Nav.Link>
               <Nav.Link>Sign out</Nav.Link>
             </>
           ) : (
