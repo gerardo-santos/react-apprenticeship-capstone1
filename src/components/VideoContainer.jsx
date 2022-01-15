@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { youtubeVideoUrl } from '../utils/constants';
 import { useContext, useState } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { StyledVideoContainer } from './styles/VideoContainer.styled';
@@ -6,35 +6,21 @@ import { lightStyles } from './styles/ThemeStyles.styled';
 import { darkStyles } from './styles/ThemeStyles.styled';
 import { StyledVideoTitle } from './styles/StyledVideoTitle.styled';
 import { StyledVideoDescription } from './styles/StyledVideoDescription.styled';
-import { youtubeVideoUrl } from '../utils/constants';
-import { youtubeApiUrl } from '../utils/constants';
-import useFetch from '../hooks/useFetch';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Spinner from './Spinner';
 import ReactPlayer from 'react-player';
+import PropTypes from 'prop-types';
 
-const VideoContainer = () => {
+const VideoContainer = ({ loading, error, video, id }) => {
   const { darkMode, isLoggedIn, favorites, dispatch } =
     useContext(GlobalContext);
 
   const textColor = darkMode ? darkStyles.color : lightStyles.color;
-  const { id } = useParams();
-
-  const { loading, error, data } = useFetch(
-    // eslint-disable-next-line no-undef
-    `${youtubeApiUrl}videos?part=snippet&id=${id}&key=${process.env.REACT_APP_API_KEY}`,
-    {},
-    id
-  );
 
   if (error) {
     return <Alert />;
   }
-
-  const video = data ? data.items[0] : {};
-  const videoTitle = data ? video.snippet.localized.title : '';
-  const videoDescription = data ? video.snippet.localized.description : '';
 
   const [isVideoInFavorites, setIsVideoInFavorites] = useState(() => {
     return favorites.some((favorite) => favorite.id === id);
@@ -59,7 +45,7 @@ const VideoContainer = () => {
         <>
           <ReactPlayer url={`${youtubeVideoUrl}${id}`} width="auto" />
           <StyledVideoTitle textColor={textColor}>
-            {videoTitle}
+            {video ? video.snippet.localized.title : ''}
           </StyledVideoTitle>
           {isLoggedIn && (
             <Button variant="danger" onClick={handleClick}>
@@ -67,12 +53,19 @@ const VideoContainer = () => {
             </Button>
           )}
           <StyledVideoDescription textColor={textColor}>
-            {videoDescription.slice(0, 300)}
+            {video ? video.snippet.localized.description.slice(0, 300) : ''}
           </StyledVideoDescription>
         </>
       )}
     </StyledVideoContainer>
   );
+};
+
+VideoContainer.propTypes = {
+  error: PropTypes.object,
+  loading: PropTypes.bool,
+  video: PropTypes.object,
+  id: PropTypes.string,
 };
 
 export default VideoContainer;
