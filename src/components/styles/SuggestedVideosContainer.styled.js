@@ -7,4 +7,8 @@ export const StyledSuggestedVideosContainer = styled.div`
   height: 100vh;
   overflow-y: scroll;
   width: 50%;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
 `;

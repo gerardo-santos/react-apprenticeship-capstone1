@@ -7,10 +7,8 @@ const App = () => {
   return (
     <GlobalProvider>
       <BrowserRouter>
-        <div>
-          <NavBar />
-          <AppRouter />
-        </div>
+        <NavBar />
+        <AppRouter />
       </BrowserRouter>
     </GlobalProvider>
   );
