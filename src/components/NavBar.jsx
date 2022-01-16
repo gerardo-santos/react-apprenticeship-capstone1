@@ -1,14 +1,19 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import SearchForm from './SearchForm';
 
 const NavBar = () => {
   const { darkMode, isLoggedIn, dispatch } = useContext(GlobalContext);
+  const navigate = useNavigate();
   const handleToggle = () => {
     dispatch({ type: 'TOGGLE_THEME' });
+  };
+  const handleSignOut = () => {
+    dispatch({ type: 'SIGN_OUT' });
+    navigate('/');
   };
   return (
     <Navbar collapseOnSelect expand="false" bg="success" variant="dark">
@@ -27,7 +32,7 @@ const NavBar = () => {
               <Nav.Link as={Link} to="favorites">
                 Favorites
               </Nav.Link>
-              <Nav.Link>Sign out</Nav.Link>
+              <Nav.Link onClick={handleSignOut}>Sign out</Nav.Link>
             </>
           ) : (
             <Nav.Link as={Link} to="log-in">

@@ -1,5 +1,5 @@
 import { youtubeVideoUrl } from '../utils/constants';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../context/GlobalContext';
 import { StyledVideoContainer } from './styles/VideoContainer.styled';
 import { lightStyles } from './styles/ThemeStyles.styled';
@@ -12,7 +12,7 @@ import Spinner from './Spinner';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 
-const VideoContainer = ({ loading, error, video, id }) => {
+const VideoContainer = ({ loading, error, video, id, favoritesPage }) => {
   const { darkMode, isLoggedIn, favorites, dispatch } =
     useContext(GlobalContext);
 
@@ -22,9 +22,11 @@ const VideoContainer = ({ loading, error, video, id }) => {
     return <Alert />;
   }
 
-  const [isVideoInFavorites, setIsVideoInFavorites] = useState(() => {
-    return favorites.some((favorite) => favorite.id === id);
-  });
+  const [isVideoInFavorites, setIsVideoInFavorites] = useState(null);
+
+  useEffect(() => {
+    setIsVideoInFavorites(favorites.some((favorite) => favorite.id === id));
+  }, [id]);
 
   const handleClick = () => {
     if (isVideoInFavorites) {
@@ -47,7 +49,7 @@ const VideoContainer = ({ loading, error, video, id }) => {
           <StyledVideoTitle textColor={textColor}>
             {video ? video.snippet.localized.title : ''}
           </StyledVideoTitle>
-          {isLoggedIn && (
+          {isLoggedIn && !favoritesPage && (
             <Button variant="danger" onClick={handleClick}>
               {isVideoInFavorites ? 'Remove From' : 'Add to'} Favorites
             </Button>
@@ -66,6 +68,7 @@ VideoContainer.propTypes = {
   loading: PropTypes.bool,
   video: PropTypes.object,
   id: PropTypes.string,
+  favoritesPage: PropTypes.bool,
 };
 
 export default VideoContainer;

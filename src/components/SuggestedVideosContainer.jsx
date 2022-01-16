@@ -1,21 +1,14 @@
 import { StyledSuggestedVideosContainer } from '../components/styles/SuggestedVideosContainer.styled';
-import { useParams } from 'react-router-dom';
-import { youtubeApiUrl } from '../utils/constants';
-import useFetch from '../hooks/useFetch';
 import SuggestedVideoCard from './SuggestedVideoCard';
 import Alert from 'react-bootstrap/Alert';
+import PropTypes from 'prop-types';
 
-const SuggestedVideosContainer = () => {
-  const { id } = useParams();
-  const { loading, error, data } = useFetch(
-    // eslint-disable-next-line no-undef
-    `${youtubeApiUrl}search?part=snippet&maxResults=20&relatedToVideoId=${id}&type=video&key=${process.env.REACT_APP_API_KEY}`,
-    {},
-    id
-  );
-  const suggestedVideos = data
-    ? data.items.filter((video) => video.snippet)
-    : [];
+const SuggestedVideosContainer = ({
+  loading,
+  error,
+  suggestedVideos,
+  favoritesPage,
+}) => {
   if (error) {
     return <Alert />;
   }
@@ -28,11 +21,22 @@ const SuggestedVideosContainer = () => {
             key={`${video.id.videoId}-${Math.random()}`}
             thumbnail={video.snippet.thumbnails.default.url}
             title={video.snippet.title}
-            url={`/video-details/${video.id.videoId}`}
+            url={
+              favoritesPage
+                ? `/favorite-details/${video.id}`
+                : `/video-details/${video.id.videoId}`
+            }
           />
         ))}
     </StyledSuggestedVideosContainer>
   );
+};
+
+SuggestedVideosContainer.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.object,
+  suggestedVideos: PropTypes.array,
+  favoritesPage: PropTypes.bool,
 };
 
 export default SuggestedVideosContainer;
