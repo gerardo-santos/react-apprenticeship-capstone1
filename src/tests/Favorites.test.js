@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { GlobalContext } from '../context/GlobalContext';
 import { BrowserRouter } from 'react-router-dom';
-import Card from '../components/Card';
+import Favorites from '../pages/private/Favorites';
 
-describe('SuggestedVideoCard', () => {
-  test('renders the SuggestedVideoCard component', () => {
+describe('Favorites', () => {
+  test('renders the Favorites component', () => {
     const initialState = {
       query: 'sports',
       search: '',
@@ -12,15 +12,14 @@ describe('SuggestedVideoCard', () => {
       isLoggedIn: true,
       favorites: [],
     };
-    const thumbnail = 'https://i.ytimg.com/vi/nmXMgqjQzls/default.jpg';
-    const url = '/video-details/7PtYNO6g7eI';
-    const title = 'My video';
     render(
       <GlobalContext.Provider value={initialState}>
         <BrowserRouter>
-          <Card thumbnail={thumbnail} url={url} title={title} />
+          <Favorites />
         </BrowserRouter>
       </GlobalContext.Provider>
     );
+    const title = screen.getByText('Favorites');
+    expect(title).toBeInTheDocument();
   });
 });
