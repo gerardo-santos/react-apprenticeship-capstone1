@@ -10,10 +10,9 @@ const SearchForm = () => {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query) {
-      dispatch({ type: 'GET_SEARCH', payload: query });
-      navigate('/');
-    }
+    if (!query) return;
+    dispatch({ type: 'GET_SEARCH', payload: query });
+    navigate('/');
   };
 
   return (
