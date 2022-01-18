@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import { GlobalContext } from '../context/GlobalContext';
 import { BrowserRouter } from 'react-router-dom';
-import Favorites from '../pages/private/Favorites';
+import FavoriteDetails from '../pages/private/FavoriteDetails';
 
-describe('Favorites', () => {
-  test('renders the Favorites component', () => {
+describe('FavoriteDetails', () => {
+  test('renders the FavoriteDetails component', () => {
     const favoritesArray = [
       {
         id: 'my-id1',
         url: '/favorite-details/1',
         snippet: {
-          thumbnails: { medium: { url: 'my-url' } },
-          title: 'my title',
-          description: 'my description',
+          thumbnails: { default: { url: 'my-url' } },
+          title: 'Soccer best goals 2020',
+          description: 'Includes goals from your favorite players.',
         },
         favorites: true,
       },
@@ -20,9 +20,9 @@ describe('Favorites', () => {
         id: 'my-id2',
         url: '/favorite-details/2',
         snippet: {
-          thumbnails: { medium: { url: 'my-url2' } },
-          title: 'my title 2',
-          description: 'my description 2',
+          thumbnails: { default: { url: 'my-url2' } },
+          title: 'Learn to make pizza',
+          description: 'Discover how to cook a simple pizza.',
         },
         favorites: true,
       },
@@ -37,13 +37,15 @@ describe('Favorites', () => {
     render(
       <GlobalContext.Provider value={initialState}>
         <BrowserRouter>
-          <Favorites />
+          <FavoriteDetails />
         </BrowserRouter>
       </GlobalContext.Provider>
     );
-    const title = screen.getByText('Favorites');
-    expect(title).toBeInTheDocument();
     const thumbnails = screen.getAllByRole('img');
     expect(thumbnails).toHaveLength(2);
+    const titles = screen.getAllByRole('heading', { level: 6 });
+    expect(titles).toHaveLength(2);
+    expect(titles[0]).toHaveTextContent('Soccer best goals 2020');
+    expect(titles[1]).toHaveTextContent('Learn to make pizza');
   });
 });

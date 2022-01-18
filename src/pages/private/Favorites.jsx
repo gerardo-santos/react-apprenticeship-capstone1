@@ -33,7 +33,7 @@ const Favorites = () => {
           {favorites.length > 0 ? (
             favorites.map((favorite) => (
               <Card
-                key={`${favorite.id.videoId}-${Math.random()}`}
+                key={`${favorite.id}-${Math.random()}`}
                 url={`/favorite-details/${favorite.id}`}
                 thumbnail={favorite.snippet.thumbnails.medium.url}
                 title={favorite.snippet.title}
