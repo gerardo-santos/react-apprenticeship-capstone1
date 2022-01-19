@@ -25,16 +25,18 @@ const VideoDetails = () => {
   );
   const video = videoResponse.data ? videoResponse.data.items[0] : {};
 
+  const filterSuggestedVideos = (response) => {
+    const responseVideos = response.items;
+    return responseVideos.filter((video) => video.snippet);
+  };
+
   const suggestedVideosResponse = useFetch(
     // eslint-disable-next-line no-undef
     `${youtubeApiUrl}search?part=snippet&maxResults=20&relatedToVideoId=${id}&type=video&key=${process.env.REACT_APP_API_KEY}`,
     {},
-    id
+    id,
+    filterSuggestedVideos
   );
-
-  const suggestedVideos = suggestedVideosResponse.data
-    ? suggestedVideosResponse.data.items.filter((video) => video.snippet)
-    : [];
 
   return (
     <PageContainer backgroundColor={backgroundColor}>
@@ -48,7 +50,7 @@ const VideoDetails = () => {
         <SuggestedVideosContainer
           loading={suggestedVideosResponse.loading}
           error={suggestedVideosResponse.error}
-          suggestedVideos={suggestedVideos}
+          suggestedVideos={suggestedVideosResponse.data}
         />
       </VideosWrapper>
     </PageContainer>

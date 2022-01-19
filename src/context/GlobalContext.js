@@ -14,7 +14,12 @@ const initialDefaultState = {
 };
 
 export const GlobalProvider = ({ children }) => {
-  const retrievedState = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+  let retrievedState;
+  try {
+    retrievedState = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+  } catch {
+    retrievedState = null;
+  }
   const initialState = retrievedState ?? initialDefaultState;
   const [state, dispatch] = useReducer(globalReducer, initialState);
   useLocalStorage(LOCAL_STORAGE_KEY, state);

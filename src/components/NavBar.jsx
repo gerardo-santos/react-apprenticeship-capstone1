@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import SearchForm from './SearchForm';
+import LoggedInOptions from './LoggedInOptions';
 
 const NavBar = () => {
   const [expanded, setExpanded] = useState(false);
@@ -14,6 +15,7 @@ const NavBar = () => {
     dispatch({ type: 'TOGGLE_THEME' });
     toggleNavBar();
   };
+
   const handleSignOut = () => {
     dispatch({ type: 'SIGN_OUT' });
     navigate('/');
@@ -39,18 +41,11 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/" onClick={toggleNavBar}>
             Home
           </Nav.Link>
-          {isLoggedIn ? (
-            <>
-              <Nav.Link as={Link} to="favorites" onClick={toggleNavBar}>
-                Favorites
-              </Nav.Link>
-              <Nav.Link onClick={handleSignOut}>Sign out</Nav.Link>
-            </>
-          ) : (
-            <Nav.Link as={Link} to="log-in" onClick={toggleNavBar}>
-              Log in
-            </Nav.Link>
-          )}
+          <LoggedInOptions
+            isLoggedIn={isLoggedIn}
+            toggleNavBar={toggleNavBar}
+            handleSignOut={handleSignOut}
+          />
         </Nav>
       </Navbar.Collapse>
     </Navbar>

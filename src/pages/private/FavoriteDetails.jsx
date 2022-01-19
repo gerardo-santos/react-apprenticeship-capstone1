@@ -24,6 +24,7 @@ const FavoriteDetails = () => {
     : lightStyles.backgroundColor;
   const { id } = useParams();
   const [video] = favorites.filter((favorite) => id === favorite.id);
+
   return (
     <PageContainer backgroundColor={backgroundColor}>
       <VideosWrapper>
