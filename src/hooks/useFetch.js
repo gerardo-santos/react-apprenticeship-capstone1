@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useFetch = (url, options, dependency) => {
+const useFetch = (url, options, dependency, func) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
@@ -11,7 +11,12 @@ const useFetch = (url, options, dependency) => {
       try {
         const response = await fetch(url, options);
         const responseJson = await response.json();
-        setData(responseJson);
+        if (func) {
+          const filteredResponse = func(responseJson);
+          setData(filteredResponse);
+        } else {
+          setData(responseJson);
+        }
         setLoading(false);
       } catch (error) {
         setError(error);

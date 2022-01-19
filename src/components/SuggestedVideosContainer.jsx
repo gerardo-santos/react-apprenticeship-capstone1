@@ -12,6 +12,7 @@ const SuggestedVideosContainer = ({
   if (error) {
     return <Alert />;
   }
+
   return (
     <StyledSuggestedVideosContainer>
       {!loading &&
