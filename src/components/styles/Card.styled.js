@@ -17,6 +17,8 @@ export const StyledCard = styled.div`
   &:hover {
     -webkit-box-shadow: 5px 5px 15px 5px #424240;
     box-shadow: 5px 5px 15px 5px #424240;
+    background-color: #999;
+    transition: 0.5s;
   }
   @media (max-width: 400px) {
     min-width: 266px;

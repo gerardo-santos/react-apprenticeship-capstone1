@@ -11,6 +11,8 @@ export const StyledSuggestedVideoCard = styled.div`
   &:hover {
     -webkit-box-shadow: 3px 3px 8px 3px #424240;
     box-shadow: 3px 3px 8px 3px #424240;
+    background-color: #999;
+    transition: 0.5s;
   }
   @media (max-width: 400px) {
     min-width: 266px;
